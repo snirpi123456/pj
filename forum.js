@@ -107,3 +107,4 @@ function showQuestions(category) {
 }
 
 showCategories();
+

@@ -39,10 +39,6 @@ function saveUserData() {
     localStorage.setItem('userData', JSON.stringify(userData));
     alert('נתוני המשתמש נשמרו בהצלחה');
 }
-
-
-document.getElementById('loginButton').addEventListener('click', authenticateUser);
-
 function authenticateUser() {
     const enteredEmail = document.getElementById('loginEmail').value;
     const enteredPassword = document.getElementById('loginPassword').value;
@@ -50,10 +46,24 @@ function authenticateUser() {
     if (enteredEmail === adminUser.email && enteredPassword === adminUser.password) {
         alert('התחברת בהצלחה כאדמין!');
         localStorage.setItem('userData', JSON.stringify({ ...adminUser, isAuthenticated: true }));
-        window.location.href = 'homePage.html'; // דף הניהול של האדמין
-    } else {
-        alert('כתובת האימייל או הסיסמה שגויים');
+        window.location.href = 'homePage.html';
+        return;
+    }else{
+        alert('שם משתמש או סיסמא שגויים ')
     }
+
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    if (userData.email === enteredEmail && userData.password === enteredPassword) {
+        alert('התחברת בהצלחה!');
+        window.location.href = 'homePage.html';
+
+        localStorage.setItem('userData', JSON.stringify({ ...adminUser, isAuthenticated: true }));
+        window.location.href = 'homePage.html';
+    }else{
+        alert('שם משתמש או סיסמא שגויים ')
+    }
+    
 }
 
 document.getElementById('registerButton').addEventListener('click', saveUserData);
